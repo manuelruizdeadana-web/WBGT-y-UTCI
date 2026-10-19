@@ -5,69 +5,67 @@ import math
 
 # Configuración de página
 st.set_page_config(
-    page_title="Monitor Bioclimático de Alta Precisión | ISO & WMO",
-    page_icon="⚡",
+    page_title="Monitor Bioclimático de Alta Precisión | Clean Tech",
+    page_icon="🌡️",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# --- CSS TÉCNICO PROFESIONAL: TEMA SALA DE CONTROL / INSTRUMENTACIÓN ---
+# --- CSS DE ALTO CONTRASTE (TEMA CLARO / LABORATORIO) ---
 st.markdown("""
 <style>
-    /* Forzar tipografía técnica Arial Narrow / Sans condensada */
+    /* Tipografía técnica Arial Narrow / Sans-Serif condensada */
     * {
-        font-family: 'Arial Narrow', 'Franklin Gothic Medium', 'Helvetica Neue', sans-serif !important;
+        font-family: 'Arial Narrow', 'Franklin Gothic Medium', 'Segoe UI', sans-serif !important;
     }
     
-    /* Fondo global técnico de alto contraste */
+    /* Fondo general claro de alto contraste */
     .stApp {
-        background-color: #0b0f19 !important;
-        color: #f1f5f9 !important;
+        background-color: #f1f5f9 !important;
+        color: #0f172a !important;
     }
 
-    /* Cabeceras de bloques principales con estilo industrial */
+    /* Tarjetas y bloques principales */
     .block-card {
-        background: #111827;
-        border: 1px solid #1f293d;
+        background: #ffffff;
+        border: 1px solid #cbd5e1;
         border-radius: 8px;
         padding: 14px;
         margin-bottom: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 2px 6px rgba(15, 23, 42, 0.06);
     }
     
+    /* Encabezados de bloques estilo instrumentación */
     .block-header {
-        background: linear-gradient(90deg, #1e293b, #0f172a);
-        border-left: 4px solid #38bdf8;
+        background: #0f172a;
+        border-left: 5px solid #0284c7;
         padding: 8px 14px;
-        font-size: 0.95rem;
+        font-size: 0.92rem;
         font-weight: 700;
-        letter-spacing: 1px;
+        letter-spacing: 0.8px;
         text-transform: uppercase;
-        color: #f8fafc;
+        color: #ffffff !important;
         border-radius: 4px;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        margin-bottom: 10px;
     }
 
     /* Display digital para números principales */
     .display-box {
-        background: #070a12;
-        border: 1px solid #1e293b;
+        background: #ffffff;
+        border: 1.5px solid #e2e8f0;
         border-radius: 6px;
         padding: 10px;
         text-align: center;
         margin-top: -10px;
         margin-bottom: 12px;
-        box-shadow: inset 0 2px 8px rgba(0,0,0,0.6);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
     }
     .display-label {
-        font-size: 0.75rem;
-        color: #94a3b8;
-        letter-spacing: 1.5px;
+        font-size: 0.76rem;
+        color: #475569;
+        letter-spacing: 1.2px;
         text-transform: uppercase;
-        font-weight: 600;
+        font-weight: 700;
         margin-bottom: 2px;
     }
     .display-value {
@@ -78,51 +76,55 @@ st.markdown("""
     }
     .display-badge {
         display: inline-block;
-        padding: 3px 10px;
-        border-radius: 20px;
+        padding: 3px 12px;
+        border-radius: 16px;
         font-size: 0.78rem;
-        font-weight: 700;
+        font-weight: 800;
         letter-spacing: 0.5px;
-        margin-top: 5px;
+        margin-top: 6px;
         text-transform: uppercase;
     }
 
-    /* Tablas normativas técnicas */
+    /* Tablas técnicas de alta legibilidad */
     .tech-table {
         width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        font-size: 0.8rem;
+        border-collapse: collapse;
+        font-size: 0.82rem;
         margin-top: 5px;
+        background: #ffffff;
     }
     .tech-table th {
-        background-color: #1e293b;
-        color: #94a3b8;
-        font-weight: 700;
+        background-color: #e2e8f0;
+        color: #1e293b;
+        font-weight: 800;
         text-transform: uppercase;
-        font-size: 0.7rem;
+        font-size: 0.72rem;
         letter-spacing: 0.5px;
-        padding: 5px 8px;
-        border-bottom: 1px solid #334155;
+        padding: 6px 8px;
+        border-bottom: 2px solid #cbd5e1;
+        text-align: left;
     }
     .tech-table td {
         padding: 6px 8px;
-        border-bottom: 1px solid #1e293b;
-        color: #cbd5e1;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
     }
-    /* Resaltado dinámico de la fila activa */
+    
+    /* Resaltado dinámico e inequívoco de la fila activa */
     .active-row {
-        background-color: rgba(56, 189, 248, 0.18) !important;
-        border-left: 3px solid #38bdf8 !important;
-        font-weight: bold !important;
-        color: #ffffff !important;
+        background-color: #e0f2fe !important;
+        border-left: 4px solid #0284c7 !important;
+        font-weight: 800 !important;
+        color: #0369a1 !important;
     }
 
-    /* Personalización de inputs en Streamlit */
-    div[data-baseweb="input"], div[data-baseweb="select"] {
-        background-color: #1e293b !important;
-        border-color: #334155 !important;
-        color: #ffffff !important;
+    /* Etiquetas de entradas */
+    .input-label {
+        color: #0f172a;
+        font-weight: 700;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        margin-bottom: 4px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -176,7 +178,6 @@ def calcular_utci(ta: float, tr: float, va: float, rh: float) -> float:
         res = ptc_utci(tdb=ta, tr=tr, v=v10, rh=rh, limit_inputs=False)
         return round(float(res.utci if hasattr(res, 'utci') else res), 1)
     except:
-        # Modelo aproximado polinomial
         d_tr = tr - ta
         pa_kpa = (rh / 100.0) * 0.61078 * math.exp((17.27 * ta) / (ta + 237.3))
         v10 = max(0.5, va * 1.44)
@@ -184,20 +185,18 @@ def calcular_utci(ta: float, tr: float, va: float, rh: float) -> float:
         return round(val, 1)
 
 # ==============================================================================
-# BLOQUE 1: PANEL DE ENTRADA DE DATOS DE ALTO RENDIMIENTO
+# BLOQUE 1: PANEL DE ENTRADA DE DATOS (FONDO CLARO Y ALTO CONTRASTE)
 # ==============================================================================
 st.markdown('<div class="block-header">🎛️ 1. VARIABLES DE ENTRADA | Monitorización Experimental y Parámetros Operativos</div>', unsafe_allow_html=True)
 
 with st.container():
-    # Fila rápida de presets de prueba
-    col_preset, col_info = st.columns([1.5, 3.5])
+    col_preset, col_pad = st.columns([1.6, 3.4])
     with col_preset:
         preset = st.selectbox(
-            "⚡ Cargar Escenario Predefinido:",
+            "Cargar Escenario Predefinido:",
             ("Personalizado", "Oficina Confortable (Verano)", "Nave Industrial Severa", "Exterior Carga Solar Extrema")
         )
 
-    # Carga de valores por defecto según preset
     if preset == "Oficina Confortable (Verano)":
         d_ta, d_tg, d_tnw, d_rh, d_va, d_met, d_clo, d_sol = 24.0, 24.5, 17.5, 50.0, 0.15, 1.2, 0.5, False
     elif preset == "Nave Industrial Severa":
@@ -207,31 +206,30 @@ with st.container():
     else:
         d_ta, d_tg, d_tnw, d_rh, d_va, d_met, d_clo, d_sol = 28.0, 34.5, 23.0, 55.0, 0.40, 1.2, 0.6, False
 
-    # Distribución en 5 columnas con bordes y fondo oscuro
     c1, c2, c3, c4, c5 = st.columns([1, 1, 1, 1.1, 1.2])
 
     with c1:
-        st.caption("🌡️ **TEMPERATURAS (°C)**")
+        st.markdown('<div class="input-label">🌡️ Temperaturas (°C)</div>', unsafe_allow_html=True)
         t_a = st.number_input("Aire / Seco (Ta):", value=d_ta, step=0.1, format="%.2f")
         t_g = st.number_input("Globo (Tg):", value=d_tg, step=0.1, format="%.2f")
 
     with c2:
-        st.caption("💧 **HUMEDADES**")
-        t_nw = st.number_input("Bulbo Húmedo (Tnw):", value=d_tnw, step=0.1, format="%.2f")
+        st.markdown('<div class="input-label">💧 Humedades</div>', unsafe_allow_html=True)
+        t_nw = st.number_input("Bulbo Húmedo (Tnw) [°C]:", value=d_tnw, step=0.1, format="%.2f")
         rh = st.slider("Humedad Relativa (RH %):", 5.0, 100.0, d_rh, 1.0)
 
     with c3:
-        st.caption("💨 **DINÁMICA & SOL**")
+        st.markdown('<div class="input-label">💨 Dinámica & Sol</div>', unsafe_allow_html=True)
         v_a = st.number_input("Velocidad Aire (va, m/s):", value=d_va, min_value=0.05, max_value=25.0, step=0.05)
         con_sol = st.checkbox("Radiación Solar Directa", value=d_sol)
 
     with c4:
-        st.caption("👤 **FACTORES HUMANOS (PMV)**")
+        st.markdown('<div class="input-label">👤 Factores Humanos</div>', unsafe_allow_html=True)
         met = st.number_input("Metabolismo (met):", value=d_met, min_value=0.7, max_value=4.0, step=0.1)
         clo = st.number_input("Aislamiento Ropa (clo):", value=d_clo, min_value=0.0, max_value=2.5, step=0.05)
 
     with c5:
-        st.caption("📋 **NORMATIVA (WBGT ISO 7243)**")
+        st.markdown('<div class="input-label">📋 Normativa WBGT</div>', unsafe_allow_html=True)
         clase_iso = st.selectbox("Actividad metabólica:", [
             "Clase 1: Ligera (115-180 W)",
             "Clase 2: Moderada (180-300 W)",
@@ -261,7 +259,7 @@ utci = calcular_utci(t_a, t_mrt, v_a, rh)
 st.write("") # Espaciador vertical
 
 # ==============================================================================
-# FILA DE RESULTADOS: 3 COLUMNAS INDEPENDIENTES (BLOQUES 2, 3 Y 4)
+# FILA DE RESULTADOS: BLOQUE 2, BLOQUE 3 Y BLOQUE 4
 # ==============================================================================
 col_b2, col_b3, col_b4 = st.columns(3)
 
@@ -271,49 +269,48 @@ col_b2, col_b3, col_b4 = st.columns(3)
 with col_b2:
     st.markdown('<div class="block-header">🏢 2. CONFORT TÉRMICO | PMV & PPD (ISO 7730)</div>', unsafe_allow_html=True)
     
-    # Semicírculo Plotly
+    # Semicírculo Plotly con aguja negro grafito de alto contraste
     fig_pmv = go.Figure(go.Indicator(
         mode="gauge",
         value=pmv,
         gauge={
-            'axis': {'range': [-3.0, 3.0], 'tickwidth': 1.5, 'tickcolor': "#94a3b8", 'tickvals': [-3, -2, -1, 0, 1, 2, 3]},
-            'bar': {'color': "#ffffff", 'thickness': 0.32},
-            'bgcolor': "#070a12",
+            'axis': {'range': [-3.0, 3.0], 'tickwidth': 1.5, 'tickcolor': "#334155", 'tickfont': {'color': '#0f172a', 'size': 11, 'family': 'Arial Narrow'}, 'tickvals': [-3, -2, -1, 0, 1, 2, 3]},
+            'bar': {'color': "#0f172a", 'thickness': 0.34}, # Aguja oscura contrastada
+            'bgcolor': "#e2e8f0",
             'steps': [
-                {'range': [-3.0, -2.0], 'color': '#1d4ed8'},  # Azul intenso
-                {'range': [-2.0, -0.7], 'color': '#0284c7'},  # Azul cielo
-                {'range': [-0.7, 0.7],  'color': '#10b981'},  # Verde confort ISO
+                {'range': [-3.0, -2.0], 'color': '#2563eb'},  # Azul frío
+                {'range': [-2.0, -0.7], 'color': '#38bdf8'},  # Azul celeste
+                {'range': [-0.7, 0.7],  'color': '#16a34a'},  # Verde confort ISO
                 {'range': [0.7, 2.0],   'color': '#f59e0b'},  # Naranja
-                {'range': [2.0, 3.0],   'color': '#ef4444'}   # Rojo
+                {'range': [2.0, 3.0],   'color': '#dc2626'}   # Rojo
             ],
-            'threshold': {'line': {'color': '#38bdf8', 'width': 4}, 'thickness': 0.8, 'value': pmv}
+            'threshold': {'line': {'color': '#0f172a', 'width': 3}, 'thickness': 0.8, 'value': pmv}
         }
     ))
-    fig_pmv.update_layout(height=170, margin=dict(l=15, r=15, t=15, b=5), paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    fig_pmv.update_layout(height=165, margin=dict(l=15, r=15, t=15, b=5), paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
     st.plotly_chart(fig_pmv, use_container_width=True)
 
-    # Color del badge y diagnóstico
+    # Diagnóstico y paleta
     if abs(pmv) <= 0.5:
-        pmv_color = "#10b981"; pmv_bg = "rgba(16,185,129,0.2)"; pmv_txt = "CONFORT ÓPTIMO (CAT. A/B)"
+        pmv_color = "#15803d"; pmv_bg = "#dcfce7"; pmv_border = "#86efac"; pmv_txt = "🟢 CONFORT ÓPTIMO (CAT. A/B)"
     elif abs(pmv) <= 0.7:
-        pmv_color = "#38bdf8"; pmv_bg = "rgba(56,189,248,0.2)"; pmv_txt = "CONFORT ACEPTABLE (CAT. C)"
+        pmv_color = "#0369a1"; pmv_bg = "#e0f2fe"; pmv_border = "#7dd3fc"; pmv_txt = "🔵 CONFORT ACEPTABLE (CAT. C)"
     elif pmv > 0.7:
-        pmv_color = "#ef4444"; pmv_bg = "rgba(239,68,68,0.2)"; pmv_txt = "SOBRECALENTAMIENTO"
+        pmv_color = "#b91c1c"; pmv_bg = "#fee2e2"; pmv_border = "#fca5a5"; pmv_txt = "🔴 SOBRECALENTAMIENTO"
     else:
-        pmv_color = "#0284c7"; pmv_bg = "rgba(2,132,199,0.2)"; pmv_txt = "SUBENFRIAMIENTO"
+        pmv_color = "#1d4ed8"; pmv_bg = "#dbeafe"; pmv_border = "#93c5fd"; pmv_txt = "🔵 SUBENFRIAMIENTO"
 
-    # Display digital LCD
     st.markdown(f"""
     <div class="display-box">
         <div class="display-label">Voto Medio Estimado / Insatisfechos</div>
         <div class="display-value" style="color: {pmv_color};">PMV: {pmv:+.2f}</div>
-        <div style="font-size:0.95rem; color:#f8fafc; font-weight:600; margin-top:2px;">PPD: {ppd:.1f}% insatisfechos</div>
-        <div class="display-badge" style="background:{pmv_bg}; color:{pmv_color};">{pmv_txt}</div>
-        <div style="font-size:0.75rem; color:#64748b; margin-top:4px;">Tmrt calculada (ISO 7726): <b>{t_mrt:.1f} °C</b></div>
+        <div style="font-size:0.95rem; color:#0f172a; font-weight:700; margin-top:2px;">PPD: {ppd:.1f}% insatisfechos</div>
+        <div class="display-badge" style="background:{pmv_bg}; color:{pmv_color}; border:1px solid {pmv_border};">{pmv_txt}</div>
+        <div style="font-size:0.75rem; color:#64748b; margin-top:5px;">Tmrt calculada (ISO 7726): <b>{t_mrt:.1f} °C</b></div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Escala con fila activa resaltada
+    # Filas activas
     r1 = "active-row" if pmv > 2.0 else ""
     r2 = "active-row" if 0.7 < pmv <= 2.0 else ""
     r3 = "active-row" if -0.5 <= pmv <= 0.5 else ""
@@ -323,11 +320,11 @@ with col_b2:
     st.markdown(f"""
     <table class="tech-table">
         <tr><th>PMV</th><th>Sensación</th><th>PPD</th><th>Norma</th></tr>
-        <tr class="{r1}"><td>+2 a +3</td><td style="color:#ef4444;">Calor severo</td><td>&gt; 75%</td><td>Fuera norma</td></tr>
-        <tr class="{r2}"><td>+0.7 a +2</td><td style="color:#f59e0b;">Lig. Cálido</td><td>15 - 75%</td><td>Cat. C</td></tr>
-        <tr class="{r3}"><td style="color:#10b981;">-0.5 a +0.5</td><td style="color:#10b981;">Neutro / Confort</td><td>&lt; 10%</td><td>Cat. B (Estándar)</td></tr>
-        <tr class="{r4}"><td>-2 a -0.7</td><td style="color:#0284c7;">Lig. Frío</td><td>15 - 75%</td><td>Cat. C</td></tr>
-        <tr class="{r5}"><td>-3 a -2</td><td style="color:#1d4ed8;">Frío severo</td><td>&gt; 75%</td><td>Fuera norma</td></tr>
+        <tr class="{r1}"><td>+2 a +3</td><td style="color:#dc2626; font-weight:700;">Calor severo</td><td>&gt; 75%</td><td>Fuera norma</td></tr>
+        <tr class="{r2}"><td>+0.7 a +2</td><td style="color:#d97706; font-weight:700;">Lig. Cálido</td><td>15 - 75%</td><td>Cat. C</td></tr>
+        <tr class="{r3}"><td style="color:#16a34a; font-weight:700;">-0.5 a +0.5</td><td style="color:#16a34a; font-weight:700;">Neutro / Confort</td><td>&lt; 10%</td><td>Cat. B (Estándar)</td></tr>
+        <tr class="{r4}"><td>-2 a -0.7</td><td style="color:#0284c7; font-weight:700;">Lig. Frío</td><td>15 - 75%</td><td>Cat. C</td></tr>
+        <tr class="{r5}"><td>-3 a -2</td><td style="color:#2563eb; font-weight:700;">Frío severo</td><td>&gt; 75%</td><td>Fuera norma</td></tr>
     </table>
     """, unsafe_allow_html=True)
 
@@ -337,48 +334,45 @@ with col_b2:
 with col_b3:
     st.markdown('<div class="block-header">🏭 3. ESTRÉS TÉRMICO LABORAL | WBGT (ISO 7243)</div>', unsafe_allow_html=True)
 
-    # Semicírculo Plotly
+    # Semicírculo Plotly con aguja oscuro grafito
     fig_wbgt = go.Figure(go.Indicator(
         mode="gauge",
         value=wbgt,
         gauge={
-            'axis': {'range': [10.0, 42.0], 'tickwidth': 1.5, 'tickcolor': "#94a3b8", 'tickvals': [10, 20, limite_wbgt, 40]},
-            'bar': {'color': "#ffffff", 'thickness': 0.32},
-            'bgcolor': "#070a12",
+            'axis': {'range': [10.0, 42.0], 'tickwidth': 1.5, 'tickcolor': "#334155", 'tickfont': {'color': '#0f172a', 'size': 11, 'family': 'Arial Narrow'}, 'tickvals': [10, 20, limite_wbgt, 40]},
+            'bar': {'color': "#0f172a", 'thickness': 0.34},
+            'bgcolor': "#e2e8f0",
             'steps': [
-                {'range': [10.0, limite_wbgt - 2.0], 'color': '#10b981'},  # Zona Segura
-                {'range': [limite_wbgt - 2.0, limite_wbgt], 'color': '#f59e0b'},  # Zona Alerta
-                {'range': [limite_wbgt, 42.0], 'color': '#ef4444'}   # Peligro
+                {'range': [10.0, limite_wbgt - 2.0], 'color': '#16a34a'},  # Zona Segura
+                {'range': [limite_wbgt - 2.0, limite_wbgt], 'color': '#f59e0b'},  # Alerta
+                {'range': [limite_wbgt, 42.0], 'color': '#dc2626'}   # Peligro
             ],
-            'threshold': {'line': {'color': '#f8fafc', 'width': 4}, 'thickness': 0.8, 'value': limite_wbgt}
+            'threshold': {'line': {'color': '#0f172a', 'width': 3}, 'thickness': 0.8, 'value': limite_wbgt}
         }
     ))
-    fig_wbgt.update_layout(height=170, margin=dict(l=15, r=15, t=15, b=5), paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    fig_wbgt.update_layout(height=165, margin=dict(l=15, r=15, t=15, b=5), paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
     st.plotly_chart(fig_wbgt, use_container_width=True)
 
-    # Color del badge y diagnóstico
     if wbgt <= (limite_wbgt - 2.0):
-        wbgt_color = "#10b981"; wbgt_bg = "rgba(16,185,129,0.2)"; wbgt_txt = "ZONA SEGURA CONFORME"
-        diff_txt = f"{abs(delta_wbgt):.2f} °C por debajo del límite seguro"
+        wbgt_color = "#15803d"; wbgt_bg = "#dcfce7"; wbgt_border = "#86efac"; wbgt_txt = "🟢 ZONA SEGURA CONFORME"
+        diff_txt = f"{abs(delta_wbgt):.2f} °C bajo el umbral permisible"
     elif wbgt <= limite_wbgt:
-        wbgt_color = "#f59e0b"; wbgt_bg = "rgba(245,158,11,0.2)"; wbgt_txt = "ALERTA PREVENTIVA"
-        diff_txt = f"A solo {abs(delta_wbgt):.2f} °C de superar el límite"
+        wbgt_color = "#b45309"; wbgt_bg = "#fef3c7"; wbgt_border = "#fde68a"; wbgt_txt = "🟡 ALERTA PREVENTIVA"
+        diff_txt = f"A {abs(delta_wbgt):.2f} °C de superar el límite normativo"
     else:
-        wbgt_color = "#ef4444"; wbgt_bg = "rgba(239,68,68,0.2)"; wbgt_txt = "EXCEDE LÍMITE LABORAL"
-        diff_txt = f"+{delta_wbgt:.2f} °C de sobrecarga térmica"
+        wbgt_color = "#b91c1c"; wbgt_bg = "#fee2e2"; wbgt_border = "#fca5a5"; wbgt_txt = "🔴 EXCEDE LÍMITE LABORAL"
+        diff_txt = f"+{delta_wbgt:.2f} °C de sobrecarga térmica laboral"
 
-    # Display digital LCD
     st.markdown(f"""
     <div class="display-box">
         <div class="display-label">Índice WBGT Ocupacional Medido</div>
         <div class="display-value" style="color: {wbgt_color};">{wbgt:.2f} °C</div>
-        <div style="font-size:0.95rem; color:#f8fafc; font-weight:600; margin-top:2px;">Límite Normativo: {limite_wbgt:.1f} °C</div>
-        <div class="display-badge" style="background:{wbgt_bg}; color:{wbgt_color};">{wbgt_txt}</div>
-        <div style="font-size:0.75rem; color:#64748b; margin-top:4px;">{diff_txt}</div>
+        <div style="font-size:0.95rem; color:#0f172a; font-weight:700; margin-top:2px;">Límite Normativo: {limite_wbgt:.1f} °C</div>
+        <div class="display-badge" style="background:{wbgt_bg}; color:{wbgt_color}; border:1px solid {wbgt_border};">{wbgt_txt}</div>
+        <div style="font-size:0.75rem; color:#64748b; margin-top:5px;">{diff_txt}</div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Escala con fila activa resaltada
     w_r1 = "active-row" if wbgt <= (limite_wbgt - 2.0) else ""
     w_r2 = "active-row" if (limite_wbgt - 2.0) < wbgt <= limite_wbgt else ""
     w_r3 = "active-row" if wbgt > limite_wbgt else ""
@@ -386,11 +380,11 @@ with col_b3:
     st.markdown(f"""
     <table class="tech-table">
         <tr><th>Rango WBGT</th><th>Evaluación</th><th>Acción Preventiva</th></tr>
-        <tr class="{w_r1}"><td style="color:#10b981;">&lt; {limite_wbgt - 2:.1f} °C</td><td style="color:#10b981;">Zona Conforme</td><td>Jornada continua / Normal</td></tr>
-        <tr class="{w_r2}"><td style="color:#f59e0b;">{limite_wbgt - 2:.1f} a {limite_wbgt:.1f} °C</td><td style="color:#f59e0b;">Alerta Térmica</td><td>Pausas 15 min / Hidratación</td></tr>
-        <tr class="{w_r3}"><td style="color:#ef4444;">&gt; {limite_wbgt:.1f} °C</td><td style="color:#ef4444;">Sobrecarga Severa</td><td>Pausas 50% / Suspender</td></tr>
+        <tr class="{w_r1}"><td style="color:#16a34a; font-weight:700;">&lt; {limite_wbgt - 2:.1f} °C</td><td style="color:#16a34a; font-weight:700;">Zona Conforme</td><td>Jornada continua / Normal</td></tr>
+        <tr class="{w_r2}"><td style="color:#d97706; font-weight:700;">{limite_wbgt - 2:.1f} a {limite_wbgt:.1f} °C</td><td style="color:#d97706; font-weight:700;">Alerta Térmica</td><td>Pausas 15 min / Hidratación</td></tr>
+        <tr class="{w_r3}"><td style="color:#dc2626; font-weight:700;">&gt; {limite_wbgt:.1f} °C</td><td style="color:#dc2626; font-weight:700;">Sobrecarga Severa</td><td>Pausas 50% / Suspender</td></tr>
     </table>
-    <div style="font-size:0.7rem; color:#64748b; margin-top:5px;">*Límite dinámico según tasa metabólica seleccionada.</div>
+    <div style="font-size:0.72rem; color:#64748b; margin-top:6px;">*Límite dinámico según tasa metabólica seleccionada en panel.</div>
     """, unsafe_allow_html=True)
 
 # ------------------------------------------------------------------------------
@@ -399,57 +393,54 @@ with col_b3:
 with col_b4:
     st.markdown('<div class="block-header">🌍 4. BIOCLIMA EXTERIOR | UTCI (COST 730 / WMO)</div>', unsafe_allow_html=True)
 
-    # Semicírculo Plotly
+    # Semicírculo Plotly con aguja oscuro grafito
     fig_utci = go.Figure(go.Indicator(
         mode="gauge",
         value=utci,
         gauge={
-            'axis': {'range': [-15.0, 52.0], 'tickwidth': 1.5, 'tickcolor': "#94a3b8", 'tickvals': [-13, 0, 9, 26, 32, 38, 46]},
-            'bar': {'color': "#ffffff", 'thickness': 0.32},
-            'bgcolor': "#070a12",
+            'axis': {'range': [-15.0, 52.0], 'tickwidth': 1.5, 'tickcolor': "#334155", 'tickfont': {'color': '#0f172a', 'size': 11, 'family': 'Arial Narrow'}, 'tickvals': [-13, 0, 9, 26, 32, 38, 46]},
+            'bar': {'color': "#0f172a", 'thickness': 0.34},
+            'bgcolor': "#e2e8f0",
             'steps': [
-                {'range': [-15.0, 0.0], 'color': '#1d4ed8'},  # Azul frío
-                {'range': [0.0, 9.0],   'color': '#0284c7'},  # Frío ligero
-                {'range': [9.0, 26.0],  'color': '#10b981'},  # Confort universal
+                {'range': [-15.0, 0.0], 'color': '#2563eb'},  # Azul frío
+                {'range': [0.0, 9.0],   'color': '#38bdf8'},  # Frío ligero
+                {'range': [9.0, 26.0],  'color': '#16a34a'},  # Confort universal
                 {'range': [26.0, 32.0], 'color': '#eab308'},  # Calor moderado
-                {'range': [32.0, 38.0], 'color': '#f97316'},  # Calor fuerte
-                {'range': [38.0, 46.0], 'color': '#ef4444'},  # Muy fuerte
-                {'range': [46.0, 52.0], 'color': '#a855f7'}   # Extremo
+                {'range': [32.0, 38.0], 'color': '#ea580c'},  # Calor fuerte
+                {'range': [38.0, 46.0], 'color': '#dc2626'},  # Muy fuerte
+                {'range': [46.0, 52.0], 'color': '#9333ea'}   # Extremo
             ],
-            'threshold': {'line': {'color': '#f8fafc', 'width': 4}, 'thickness': 0.8, 'value': utci}
+            'threshold': {'line': {'color': '#0f172a', 'width': 3}, 'thickness': 0.8, 'value': utci}
         }
     ))
-    fig_utci.update_layout(height=170, margin=dict(l=15, r=15, t=15, b=5), paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    fig_utci.update_layout(height=165, margin=dict(l=15, r=15, t=15, b=5), paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
     st.plotly_chart(fig_utci, use_container_width=True)
 
-    # Diagnóstico UTCI
     if utci > 46:
-        u_col = "#a855f7"; u_bg = "rgba(168,85,247,0.2)"; u_diag = "ESTRÉS EXTREMO CALOR"
+        u_col = "#7e22ce"; u_bg = "#f3e8ff"; u_border = "#d8b4fe"; u_diag = "🟣 ESTRÉS EXTREMO CALOR"
     elif utci > 38:
-        u_col = "#ef4444"; u_bg = "rgba(239,68,68,0.2)"; u_diag = "ESTRÉS MUY FUERTE CALOR"
+        u_col = "#b91c1c"; u_bg = "#fee2e2"; u_border = "#fca5a5"; u_diag = "🔴 ESTRÉS MUY FUERTE CALOR"
     elif utci > 32:
-        u_col = "#f97316"; u_bg = "rgba(249,115,22,0.2)"; u_diag = "ESTRÉS FUERTE CALOR"
+        u_col = "#c2410c"; u_bg = "#ffedd5"; u_border = "#fed7aa"; u_diag = "🟠 ESTRÉS FUERTE CALOR"
     elif utci > 26:
-        u_col = "#eab308"; u_bg = "rgba(234,179,8,0.2)"; u_diag = "ESTRÉS MODERADO CALOR"
+        u_col = "#a16207"; u_bg = "#fef9c3"; u_border = "#fde047"; u_diag = "🟡 ESTRÉS MODERADO CALOR"
     elif utci >= 9:
-        u_col = "#10b981"; u_bg = "rgba(16,185,129,0.2)"; u_diag = "ZONA DE CONFORT TÉRMICO"
+        u_col = "#15803d"; u_bg = "#dcfce7"; u_border = "#86efac"; u_diag = "🟢 ZONA DE CONFORT TÉRMICO"
     elif utci >= 0:
-        u_col = "#0284c7"; u_bg = "rgba(2,132,199,0.2)"; u_diag = "ESTRÉS LIGERO FRÍO"
+        u_col = "#0369a1"; u_bg = "#e0f2fe"; u_border = "#7dd3fc"; u_diag = "🔵 ESTRÉS LIGERO FRÍO"
     else:
-        u_col = "#1d4ed8"; u_bg = "rgba(29,78,216,0.2)"; u_diag = "ESTRÉS FUERTE FRÍO"
+        u_col = "#1d4ed8"; u_bg = "#dbeafe"; u_border = "#93c5fd"; u_diag = "🔷 ESTRÉS FUERTE FRÍO"
 
-    # Display digital LCD
     st.markdown(f"""
     <div class="display-box">
         <div class="display-label">Temperatura Climatológica Equivalente</div>
         <div class="display-value" style="color: {u_col};">{utci:+.1f} °C</div>
-        <div style="font-size:0.95rem; color:#f8fafc; font-weight:600; margin-top:2px;">{u_diag}</div>
-        <div class="display-badge" style="background:{u_bg}; color:{u_col};">ESCALA INTERNACIONAL WMO</div>
-        <div style="font-size:0.75rem; color:#64748b; margin-top:4px;">Viento a 10m normalizado: <b>{max(0.5, v_a * 1.44):.1f} m/s</b></div>
+        <div style="font-size:0.95rem; color:#0f172a; font-weight:700; margin-top:2px;">{u_diag}</div>
+        <div class="display-badge" style="background:{u_bg}; color:{u_col}; border:1px solid {u_border};">ESCALA OFICIAL WMO</div>
+        <div style="font-size:0.75rem; color:#64748b; margin-top:5px;">Viento a 10m proyectado: <b>{max(0.5, v_a * 1.44):.1f} m/s</b></div>
     </div>
     """, unsafe_allow_html=True)
 
-    # Escala con fila activa resaltada
     u1 = "active-row" if utci > 46 else ""
     u2 = "active-row" if 38 < utci <= 46 else ""
     u3 = "active-row" if 32 < utci <= 38 else ""
@@ -460,11 +451,11 @@ with col_b4:
     st.markdown(f"""
     <table class="tech-table">
         <tr><th>Rango UTCI</th><th>Sensación Fisiológica</th><th>Respuesta Humana</th></tr>
-        <tr class="{u1}"><td style="color:#a855f7;">&gt; +46 °C</td><td style="color:#a855f7;">Calor Extremo</td><td>Peligro térmico inminente</td></tr>
-        <tr class="{u2}"><td style="color:#ef4444;">+38 a +46 °C</td><td style="color:#ef4444;">Calor Muy Fuerte</td><td>Sudoración masiva / Taquicardia</td></tr>
-        <tr class="{u3}"><td style="color:#f97316;">+32 a +38 °C</td><td style="color:#f97316;">Calor Fuerte</td><td>Sobrecarga circulatoria</td></tr>
-        <tr class="{u4}"><td style="color:#eab308;">+26 a +32 °C</td><td style="color:#eab308;">Calor Moderado</td><td>Bochorno / Sudoración</td></tr>
-        <tr class="{u5}"><td style="color:#10b981;">+9 a +26 °C</td><td style="color:#10b981;">Confort Térmico</td><td>Equilibrio óptimo</td></tr>
-        <tr class="{u6}"><td style="color:#0284c7;">&lt; +9 °C</td><td style="color:#0284c7;">Estrés por Frío</td><td>Vasoconstricción periférica</td></tr>
+        <tr class="{u1}"><td style="color:#9333ea; font-weight:700;">&gt; +46 °C</td><td style="color:#9333ea; font-weight:700;">Calor Extremo</td><td>Peligro térmico inminente</td></tr>
+        <tr class="{u2}"><td style="color:#dc2626; font-weight:700;">+38 a +46 °C</td><td style="color:#dc2626; font-weight:700;">Calor Muy Fuerte</td><td>Sudoración masiva / Taquicardia</td></tr>
+        <tr class="{u3}"><td style="color:#ea580c; font-weight:700;">+32 a +38 °C</td><td style="color:#ea580c; font-weight:700;">Calor Fuerte</td><td>Sobrecarga circulatoria</td></tr>
+        <tr class="{u4}"><td style="color:#ca8a04; font-weight:700;">+26 a +32 °C</td><td style="color:#ca8a04; font-weight:700;">Calor Moderado</td><td>Bochorno / Sudoración</td></tr>
+        <tr class="{u5}"><td style="color:#16a34a; font-weight:700;">+9 a +26 °C</td><td style="color:#16a34a; font-weight:700;">Confort Térmico</td><td>Equilibrio óptimo</td></tr>
+        <tr class="{u6}"><td style="color:#0284c7; font-weight:700;">&lt; +9 °C</td><td style="color:#0284c7; font-weight:700;">Estrés por Frío</td><td>Vasoconstricción periférica</td></tr>
     </table>
     """, unsafe_allow_html=True)
